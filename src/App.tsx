@@ -1,25 +1,56 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { forwardRef } from 'react';
 import './App.css';
+import MaterialTable, { Column, Icons } from '@material-table/core';
+import { AddBox, ArrowDownward, Check, ChevronLeft, ChevronRight, Clear, DeleteOutline, Edit, FilterList, FirstPage, LastPage, Remove, SaveAlt, Search, ViewColumn } from '@material-ui/icons';
 
-function App() {
+const tableIcons: Icons = {
+  Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
+  Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
+  Clear: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
+  Delete: forwardRef((props, ref) => <DeleteOutline {...props} ref={ref} />),
+  DetailPanel: forwardRef((props, ref) => (
+    <ChevronRight {...props} ref={ref} />
+  )),
+  Edit: forwardRef((props, ref) => <Edit {...props} ref={ref} />),
+  Export: forwardRef((props, ref) => <SaveAlt {...props} ref={ref} />),
+  Filter: forwardRef((props, ref) => <FilterList {...props} ref={ref} />),
+  FirstPage: forwardRef((props, ref) => <FirstPage {...props} ref={ref} />),
+  LastPage: forwardRef((props, ref) => <LastPage {...props} ref={ref} />),
+  NextPage: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
+  PreviousPage: forwardRef((props, ref) => (
+    <ChevronLeft {...props} ref={ref} />
+  )),
+  ResetSearch: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
+  Search: forwardRef((props, ref) => <Search {...props} ref={ref} />),
+  SortArrow: forwardRef((props, ref) => <ArrowDownward {...props} ref={ref} />),
+  ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
+  ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
+};
+
+interface IPerson {
+  firstName: string;
+  lastName: string;
+  birthYear: number;
+  availability: boolean;
+}
+
+const lookup = { true: "Available", false: "Unavailable" };
+
+const columns: Array<Column<IPerson>> = [
+  { title: "First Name", field: "firstName" },
+  { title: "Last Name", field: "lastName" },
+  { title: "Birth Year", field: "birthYear", type: "numeric" },
+  { title: "Availablity", field: "availability", lookup }
+];
+
+const data: Array<IPerson> = [
+  { firstName: "Tod", lastName: "Miles", birthYear: 1987, availability: true },
+  { firstName: "Jess", lastName: "Smith", birthYear: 2000, availability: false }
+];
+
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <MaterialTable columns={columns} data={data} icons={tableIcons} />
   );
 }
 
