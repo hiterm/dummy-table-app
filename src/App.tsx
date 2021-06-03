@@ -3,6 +3,7 @@ import './App.css';
 import MaterialTable, { Column, Icons } from '@material-table/core';
 import { AddBox, ArrowDownward, Check, ChevronLeft, ChevronRight, Clear, DeleteOutline, Edit, FilterList, FirstPage, LastPage, Remove, SaveAlt, Search, ViewColumn } from '@material-ui/icons';
 import { Container } from '@material-ui/core';
+import faker from 'faker';
 
 const tableIcons: Icons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -32,7 +33,6 @@ interface IPerson {
   firstName: string;
   lastName: string;
   birthYear: number;
-  availability: boolean;
 }
 
 const lookup = { true: "Available", false: "Unavailable" };
@@ -41,13 +41,14 @@ const columns: Array<Column<IPerson>> = [
   { title: "First Name", field: "firstName" },
   { title: "Last Name", field: "lastName" },
   { title: "Birth Year", field: "birthYear", type: "numeric" },
-  { title: "Availablity", field: "availability", lookup }
 ];
 
-const data: Array<IPerson> = [
-  { firstName: "Tod", lastName: "Miles", birthYear: 1987, availability: true },
-  { firstName: "Jess", lastName: "Smith", birthYear: 2000, availability: false }
-];
+faker.seed(0);
+const data = [...new Array(10)].map(() => ({
+  firstName: faker.name.firstName(),
+  lastName: faker.name.lastName(),
+  birthYear: faker.datatype.datetime().getFullYear(),
+}));
 
 const App: React.FC = () => {
   return (
