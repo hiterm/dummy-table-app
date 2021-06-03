@@ -2,6 +2,7 @@ import React, { forwardRef } from 'react';
 import './App.css';
 import MaterialTable, { Column, Icons } from '@material-table/core';
 import { AddBox, ArrowDownward, Check, ChevronLeft, ChevronRight, Clear, DeleteOutline, Edit, FilterList, FirstPage, LastPage, Remove, SaveAlt, Search, ViewColumn } from '@material-ui/icons';
+import { Container } from '@material-ui/core';
 
 const tableIcons: Icons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -50,7 +51,9 @@ const data: Array<IPerson> = [
 
 const App: React.FC = () => {
   return (
-    <MaterialTable columns={columns} data={data} icons={tableIcons} />
+    <Container>
+      <MaterialTable columns={columns} data={data} icons={tableIcons} />
+    </Container>
   );
 }
 
