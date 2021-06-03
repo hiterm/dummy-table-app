@@ -35,8 +35,6 @@ interface IPerson {
   birthYear: number;
 }
 
-const lookup = { true: "Available", false: "Unavailable" };
-
 const columns: Array<Column<IPerson>> = [
   { title: "First Name", field: "firstName" },
   { title: "Last Name", field: "lastName" },
@@ -44,7 +42,7 @@ const columns: Array<Column<IPerson>> = [
 ];
 
 faker.seed(0);
-const data = [...new Array(10)].map(() => ({
+const data = [...new Array(20)].map(() => ({
   firstName: faker.name.firstName(),
   lastName: faker.name.lastName(),
   birthYear: faker.datatype.datetime().getFullYear(),
